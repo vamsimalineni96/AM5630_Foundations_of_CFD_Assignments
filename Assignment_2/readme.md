@@ -28,3 +28,9 @@
       * `PSOR` method
       * `LSOR` method
       * `ADI` method
+
+### General Instructions
+Install the required libraries using the following command :
+``` python
+pip install -r requirements.txt
+```
