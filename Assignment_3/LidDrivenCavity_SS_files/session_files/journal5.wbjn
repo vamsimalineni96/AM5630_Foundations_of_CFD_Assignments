@@ -1,0 +1,103 @@
+# encoding: utf-8
+# 2021 R1
+SetScriptVersion(Version="21.1.216")
+system1 = GetSystem(Name="FFF")
+results1 = system1.GetContainer(ComponentName="Results")
+results1.Edit()
+solution1 = system1.GetContainer(ComponentName="Solution")
+solution1.Edit()
+setup1 = system1.GetContainer(ComponentName="Setup")
+setup1.SendCommand(Command='(cx-gui-do cx-activate-tab-index "NavigationPane*Frame1(TreeTab)" 0)(cx-gui-do cx-activate-tab-index "NavigationPane*Frame1(TreeTab)" 1)')
+setup1.SendCommand(Command='/file/set-tui-version "21.1"(cx-gui-do cx-activate-item "Key Behavioral Changes*PanelButtons*PushButton1(OK)")')
+setup1.SendCommand(Command='(cx-gui-do cx-set-list-tree-selections "NavigationPane*List_Tree1" (list "Setup|Materials|Fluid|mine"))')
+setup1.SendCommand(Command='(cx-gui-do cx-set-list-tree-selections "NavigationPane*List_Tree1" (list "Setup|Materials|Fluid|mine"))(cx-gui-do cx-activate-item "NavigationPane*List_Tree1")')
+setup1.SendCommand(Command="(cx-gui-do cx-set-list-tree-selections \"NavigationPane*List_Tree1\" (list \"Setup|Materials|Fluid|mine\"))(cx-gui-do cx-set-real-entry-list \"Create/Edit Materials*RealEntry16\" '( 0.01))")
+setup1.SendCommand(Command='(cx-gui-do cx-activate-item "Create/Edit Materials*PanelButtons*PushButton3(Change/Create)")')
+setup1.SendCommand(Command='(cx-gui-do cx-activate-item "Create/Edit Materials*PanelButtons*PushButton1(Close)")')
+setup1.SendCommand(Command='(cx-gui-do cx-activate-item "ToolBar*Workbench Tools*fl_run_calculation")')
+setup1.SendCommand(Command='(cx-gui-do cx-activate-item "Run Calculation*Table1*Table6(Solution Advancement)*Table1*PushButton1(Calculate)")(cx-gui-do cx-activate-item "Settings have changed!*PanelButtons*PushButton1(OK)")')
+resultsComponent1 = system1.GetComponent(Name="Results")
+resultsComponent1.Refresh()
+results1.SendCommand(Command="""VIEW:View 1
+  Camera Mode = User Specified
+  CAMERA:
+    Option = Pivot Point and Quaternion
+    Pivot Point = 0.5, 0.5, 0
+    Scale = 1.81818
+    Pan = 0, 0
+    Rotation Quaternion = 0, 0, 0, 1
+    
+  END
+
+END
+
+VIEW:View 1
+  Light Angle = 50, 110
+END
+
+VIEW:View 2
+  Light Angle = 50, 110
+END
+
+VIEW:View 3
+  Light Angle = 50, 110
+END
+
+VIEW:View 4
+  Light Angle = 50, 110
+END
+
+> update
+> autolegend plot=/DATA READER/CASE:Case FFF/BOUNDARY:symmetry 1, view=VIEW:View 1""")
+results1.SendCommand(Command="> autolegend plot=/DATA READER/CASE:Case FFF/BOUNDARY:symmetry 1, view=VIEW:View 1")
+results1.SendCommand(Command="""EXPORT:
+ANSYS Export Data = Element Heat Flux
+ANSYS File Format = ANSYS
+ANSYS Reference Temperature = 0.0 [K]
+ANSYS Specify Reference Temperature = Off
+ANSYS Supplemental HTC = 0.0 [W m^-2 K^-1]
+Additional Variable List =  
+BC Profile Type = Inlet Velocity
+CSV Type = CSV
+Case Name = Case FFF
+Export Connectivity = Off
+Export Coord Frame = Global
+Export File = E:/IIT M/Assigments/CFD/Computer Assignments/CA3/export.csv
+Export Geometry = On
+Export Location Aliases = 
+Export Node Numbers = Off
+Export Null Data = On
+Export Type = Generic
+Export Units System = Current
+Export Variable Type = Current
+External Export Data = None
+Include File Information = Off
+Include Header = On
+Location = moving_wall
+Location List = symmetry 1
+Null Token = null
+Overwrite = On
+Precision = 8
+Separator = \", \"
+Spatial Variables = X,Y,Z
+Variable List = Pressure
+Vector Brackets = ()
+Vector Display = Scalar
+END
+>export""")
+setup1.SendCommand(Command='(cx-gui-do cx-activate-item "Information*OK")')
+setup1.SendCommand(Command='(cx-gui-do cx-activate-item "MenuBar*ExportSubMenu*Case...")')
+setup1.SendCommand(Command='(cx-gui-do cx-activate-item "MenuBar*ExportSubMenu*Solution Data...")')
+setup1.SendCommand(Command="(cx-gui-do cx-set-list-selections \"Export*Table1*Table2*DropDownList1(File Type)\" '( 12))")
+setup1.SendCommand(Command='(cx-gui-do cx-activate-item "Export*Table1*Table2*DropDownList1(File Type)")')
+setup1.SendCommand(Command="(cx-gui-do cx-set-list-selections \"Export*Table1*Table5*List1(Quantities)\" '( 4))(cx-gui-do cx-activate-item \"Export*Table1*Table5*List1(Quantities)\")(cx-gui-do cx-activate-item \"Export*PanelButtons*PushButton1(OK)\")(cx-gui-do cx-set-file-dialog-entries \"Select File\" '( \"FFF\") \"Tecplot Files ()\")")
+setup1.SendCommand(Command='(cx-gui-do cx-activate-item "Export*PanelButtons*PushButton2(Cancel)")')
+results1.Exit()
+setup1.SendCommand(Command='(cx-gui-do cx-activate-item "MenuBar*ExportSubMenu*Solution Data...")')
+setup1.SendCommand(Command="(cx-gui-do cx-set-list-selections \"Export*Table1*Table2*DropDownList1(File Type)\" '( 12))")
+setup1.SendCommand(Command='(cx-gui-do cx-activate-item "Export*Table1*Table2*DropDownList1(File Type)")')
+setup1.SendCommand(Command="(cx-gui-do cx-set-list-selections \"Export*Table1*List4(Surfaces)\" '( 0))(cx-gui-do cx-activate-item \"Export*Table1*List4(Surfaces)\")(cx-gui-do cx-set-list-selections \"Export*Table1*List4(Surfaces)\" '())(cx-gui-do cx-activate-item \"Export*Table1*List4(Surfaces)\")(cx-gui-do cx-set-list-selections \"Export*Table1*List4(Surfaces)\" '( 0))(cx-gui-do cx-activate-item \"Export*Table1*List4(Surfaces)\")(cx-gui-do cx-set-list-selections \"Export*Table1*List4(Surfaces)\" '())(cx-gui-do cx-activate-item \"Export*Table1*List4(Surfaces)\")(cx-gui-do cx-activate-item \"Export*PanelButtons*PushButton1(OK)\")(cx-gui-do cx-set-file-dialog-entries \"Select File\" '( \"E:/IIT M/Assigments/CFD/Computer Assignments/CA3/tecplot\") \"Tecplot Files ()\")")
+setup1.SendCommand(Command="(cx-gui-do cx-set-list-selections \"Export*Table1*Table5*List1(Quantities)\" '( 4 11))(cx-gui-do cx-activate-item \"Export*Table1*Table5*List1(Quantities)\")(cx-gui-do cx-set-list-selections \"Export*Table1*Table5*List1(Quantities)\" '( 4))(cx-gui-do cx-activate-item \"Export*Table1*Table5*List1(Quantities)\")(cx-gui-do cx-set-list-selections \"Export*Table1*Table5*List1(Quantities)\" '( 4 11))(cx-gui-do cx-activate-item \"Export*Table1*Table5*List1(Quantities)\")(cx-gui-do cx-set-list-selections \"Export*Table1*Table5*List1(Quantities)\" '( 4))(cx-gui-do cx-activate-item \"Export*Table1*Table5*List1(Quantities)\")(cx-gui-do cx-set-list-selections \"Export*Table1*Table5*List1(Quantities)\" '())(cx-gui-do cx-activate-item \"Export*Table1*Table5*List1(Quantities)\")(cx-gui-do cx-set-list-selections \"Export*Table1*Table5*List1(Quantities)\" '( 11))(cx-gui-do cx-activate-item \"Export*Table1*Table5*List1(Quantities)\")(cx-gui-do cx-activate-item \"Export*PanelButtons*PushButton1(OK)\")(cx-gui-do cx-set-file-dialog-entries \"Select File\" '( \"stream\") \"Tecplot Files ()\")")
+setup1.SendCommand(Command='(cx-gui-do cx-activate-item "Export*PanelButtons*PushButton2(Cancel)")')
+setup1.SendCommand(Command='(cx-gui-do cx-activate-item "MenuBar*FileMenu*Close Fluent")(cx-gui-do cx-activate-item "Settings have changed!*PanelButtons*PushButton1(OK)")')
+Save(Overwrite=True)
