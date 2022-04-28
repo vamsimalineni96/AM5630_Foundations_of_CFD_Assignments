@@ -11,4 +11,5 @@ Dimensions:
 
 <br/> The Lid Driven Cavity flow is solved using `Stream Function voriticity approach`.
 <br/> The flow chart of the psuedo code is presented below.
+<br/> 
 ![Screenshot 2022-04-28 221430](https://user-images.githubusercontent.com/98683842/165803010-73a51714-fefa-47f7-9588-82891402ca49.jpg)
